@@ -27,63 +27,6 @@
         return this._hasNative;
       }
 
-      static get properties() {
-        return {
-          /**
-           * use the native input, if it exists
-           */
-          native: {
-            type: Boolean,
-            value: false
-          },
-
-          /**
-           * opens the picker
-           */
-          opened: {
-            type: Boolean,
-            reflectToAttribute: true,
-            value: false,
-            notify: true
-          },
-
-          /**
-           * The orientation against which to align the element horizontally
-           * relative to the related input element. Possible values are "left", "right", "auto". (comparable to `iron-fit-behavior` and its `no-overlap`-attribute)
-           */
-          horizontalAlign: {
-            type: String,
-            reflectToAttribute: true
-          },
-          /**
-           * The orientation against which to align the element vertically
-           * relative to the related input element. Possible values are "top", "bottom", "auto". (comparable to `iron-fit-behavior` and its `no-overlap`-attribute)
-           */
-          verticalAlign: {
-            type: String,
-            reflectToAttribute: true,
-            value: 'top'
-          },
-
-          /**
-           * disables the input elements
-           */
-          disabled: {
-            type: Boolean,
-            value: false
-          },
-
-          /**
-           * Set to true to disable canceling the overlay with the ESC key.
-           */
-          noCancelOnEscKey: {
-            type: Boolean,
-            value: false
-          }
-
-        }
-      }
-
       static get template() {
         return `
           ${this._styleTemplate}
@@ -198,7 +141,7 @@
        */
       static get _nativeInputTemplate() {
         return `
-          <input class="native" type="${this.expectedNativeInputType}" hidden$="[[!native]]" disabled$="[[disabled]]" min="[[min]]" max="[[max]]" value="{{${this.nativeInputBinding || this.expectedNativeInputType}::input}}" step="1">
+          <input class="native" type="${this.expectedNativeInputType}" hidden$="[[!native]]" disabled$="[[disabled]]" value="{{${this.nativeInputBinding || this.expectedNativeInputType}::input}}">
         `;
       }
 
@@ -216,9 +159,65 @@
        */
       static get pickerTemplate() {
         return `
-          <div id="picker">
-          </div>
+          <div id="picker"></div>
         `;
+      }
+
+      static get properties() {
+        return {
+          /**
+           * use the native input, if it exists
+           */
+          native: {
+            type: Boolean,
+            value: false
+          },
+
+          /**
+           * opens the picker
+           */
+          opened: {
+            type: Boolean,
+            reflectToAttribute: true,
+            value: false,
+            notify: true
+          },
+
+          /**
+           * The orientation against which to align the element horizontally
+           * relative to the related input element. Possible values are "left", "right", "auto". (comparable to `iron-fit-behavior` and its `no-overlap`-attribute)
+           */
+          horizontalAlign: {
+            type: String,
+            reflectToAttribute: true
+          },
+          /**
+           * The orientation against which to align the element vertically
+           * relative to the related input element. Possible values are "top", "bottom", "auto". (comparable to `iron-fit-behavior` and its `no-overlap`-attribute)
+           */
+          verticalAlign: {
+            type: String,
+            reflectToAttribute: true,
+            value: 'top'
+          },
+
+          /**
+           * disables the input elements
+           */
+          disabled: {
+            type: Boolean,
+            value: false
+          },
+
+          /**
+           * Set to true to disable canceling the overlay with the ESC key.
+           */
+          noCancelOnEscKey: {
+            type: Boolean,
+            value: false
+          }
+
+        }
       }
 
       connectedCallback() {
