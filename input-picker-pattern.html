@@ -1,3 +1,5 @@
+<link rel="import" href="input-picker-shared-style.html">
+
 <script>
   /**
    * mixin to extend an element with a test for an expected input type and implement a polyfill, when wanted or needed
@@ -51,7 +53,7 @@
        * @type {string}
        */
       static get customStyleToInclude() {
-        return ``;
+        return `${super.customStyleToInclude || ''} input-picker-shared-style`;
       }
 
       /**
@@ -60,9 +62,16 @@
        */
       static get customStyleContent() {
         return `
-          ${super.customStyleContent}
+          ${super.customStyleContent || ''}
           :host {
             display: inline-flex;
+            position: relative;
+          }
+          .icon {
+            border-radius: 2px;
+            padding: 8px;
+            height: 16px;
+            width: 16px;
           }
           .icon.button {
             position: absolute;
@@ -104,7 +113,7 @@
       static get _native() {
         return `
           ${this._nativeInputTemplate}
-          <div hidden$="[[native]]">
+          <div hidden$="[[native]]" style="position:relative;">
             ${this._polyfill}
           </div>
         `
