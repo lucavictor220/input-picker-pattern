@@ -115,7 +115,7 @@
       static get _polyfill() {
         return `
           <div id="polyfill" on-click="open">
-            ${this._inputTemplate}
+            ${this.replacementInputTemplate}
           </div>
           ${this.pickerTemplate}
         `;
@@ -147,7 +147,7 @@
        * template for the replacement of the native input elements
        * @type {string}
        */
-      static get _inputTemplate() {
+      static get replacementInputTemplate() {
         return '';
       }
 
