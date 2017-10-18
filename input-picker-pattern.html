@@ -87,7 +87,6 @@
           #picker {
             display: flex;
             flex-direction: column;
-            overflow: hidden;
             flex-shrink: 0;
           }
           #picker[horizontal] {
@@ -323,7 +322,6 @@
         }
         if (!this.mediated) {
           this.confirm();
-          console.log('console');
           return;
         }
         if (super.cancel) {
