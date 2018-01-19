@@ -2548,6 +2548,125 @@
   ],
   "mixins": [
     {
+      "description": "mixin to extend an element, to be compatible with iron-form",
+      "summary": "",
+      "path": "form-element-mixin.html",
+      "properties": [
+        {
+          "name": "name",
+          "type": "string",
+          "description": "name of the input",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 16,
+              "column": 10
+            },
+            "end": {
+              "line": 18,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "description": "value of the input",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 23,
+              "column": 10
+            },
+            "end": {
+              "line": 25,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        }
+      ],
+      "methods": [
+        {
+          "name": "validate",
+          "description": "validates the input for iron-form",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 32,
+              "column": 6
+            },
+            "end": {
+              "line": 34,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": []
+        }
+      ],
+      "staticMethods": [],
+      "demos": [],
+      "metadata": {},
+      "sourceRange": {
+        "start": {
+          "line": 7,
+          "column": 2
+        },
+        "end": {
+          "line": 36,
+          "column": 3
+        }
+      },
+      "privacy": "public",
+      "name": "FormElementMixin",
+      "attributes": [
+        {
+          "name": "name",
+          "description": "name of the input",
+          "sourceRange": {
+            "start": {
+              "line": 16,
+              "column": 10
+            },
+            "end": {
+              "line": 18,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "value",
+          "description": "value of the input",
+          "sourceRange": {
+            "start": {
+              "line": 23,
+              "column": 10
+            },
+            "end": {
+              "line": 25,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        }
+      ],
+      "events": [],
+      "styling": {
+        "cssVariables": [],
+        "selectors": []
+      },
+      "slots": []
+    },
+    {
       "description": "mixin to extend an element with a test for an expected input type and implement a polyfill, when wanted or needed",
       "summary": "",
       "path": "input-picker-pattern.html",
