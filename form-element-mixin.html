@@ -12,6 +12,20 @@
       static get properties() {
         return {
           /**
+           * required attribute
+           */
+          required: {
+            type: Boolean
+          },
+
+          /**
+           * disables the input
+           */
+          disabled: {
+            type: Boolean
+          },
+
+          /**
            * name of the input
            */
           name: {
@@ -31,7 +45,7 @@
        * validates the input for iron-form
        */
       validate() {
-        return true;
+        return !this.disabled && !(this.required && this.value);
       }
     }
   }
