@@ -98,9 +98,19 @@
             display: inline-flex;
             flex-direction: column;
             flex-shrink: 0;
+            padding: 0 !important;
+            background: var(--input-background);
+            color: var(--input-color);
+          }
+          #picker > * {
+            padding: var(--input-picker-padding, 4px);
           }
           #picker[horizontal] {
             flex-direction: row;
+          }
+          #picker > :first-child {
+            border-top-left-radius: inherit;
+            border-top-right-radius: inherit;
           }
           #picker > :not(:first-child) {
             border-top-left-radius: 0 !important;
@@ -109,6 +119,10 @@
           #picker > :not(:last-child) {
             border-bottom-left-radius: 0 !important;
             border-bottom-right-radius: 0 !important;
+          }
+          #picker > :last-child {
+            border-bottom-left-radius: inherit;
+            border-bottom-right-radius: inherit;
           }
           #picker[horizontal] > :not(:first-child) {
             border-bottom-left-radius: 0 !important;
