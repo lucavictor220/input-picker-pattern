@@ -25,7 +25,7 @@
           invalid: {
             type: Boolean,
             reflectToAttribute: true,
-            computed: '_validate(required, value)'
+            computed: '_computeInvalid(required, value)'
           },
 
           /**
@@ -52,11 +52,15 @@
         }
       }
 
+      _computeInvalid(required, value) {
+        return (this.required && this.value);
+      }
+
       /**
        * validates the input for iron-form
        */
       validate() {
-        return !(this.required && this.value);
+        return !this.invalid;
       }
     }
   }
