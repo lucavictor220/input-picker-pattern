@@ -53,7 +53,7 @@
       }
 
       _computeInvalid(required, value) {
-        return (this.required && this.value);
+        return Boolean(this.required && !this.value);
       }
 
       /**
