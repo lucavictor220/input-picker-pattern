@@ -46,7 +46,7 @@
           border-radius: 4px;
         };
         --input-icon: {
-          border-radius: 2px;
+          border-radius: 4px;
           padding: 8px;
           height: 16px;
           width: 16px;
@@ -56,9 +56,8 @@
           fill: currentColor;
         };
         --input-invalid: {
-          border: none;
-          box-shadow: 0 0 1px 1px var(--input-invalid-color);
-        }
+          border-color: var(--input-invalid-color);
+        };
       }
       :host > * {
         position: relative;
@@ -70,6 +69,11 @@
       input::-webkit-clear-button,
       input::-webkit-calendar-picker-indicator {
         color: currentColor;
+        fill: currentColor;
+        cursor: pointer;
+      }
+      input::-webkit-calendar-picker-indicator:hover {
+        background: transparent;
       }
       input:invalid {
         @apply --input-invalid;
