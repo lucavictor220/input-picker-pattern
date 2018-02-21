@@ -84,19 +84,21 @@
             display: inline-flex;
             position: relative;
           }
-          #buttons {
-            display: -webkit-inline-flex;
-            display: -ms-inline-flexbox;
-            display: inline-flex;
-            position: relative;
-            align-items: center;
-            justify-content: flex-end;
-          }
           #polyfill {
             display: -webkit-inline-flex;
             display: -ms-inline-flexbox;
             display: inline-flex;;
             align-items: center;
+            @apply --input-style;
+            padding: 0;
+          }
+          :host(:hover) #polyfill,
+          :host(:focus) #polyfill {
+            @apply --input-focus;
+          }
+          #polyfill > .replacement {
+            --input-color: currentColor;
+            --input-background: transparent;
           }
           #picker {
             display: -webkit-inline-flex;
@@ -104,9 +106,21 @@
             display: inline-flex;
             flex-direction: column;
             flex-shrink: 0;
-            padding: 0 !important;
-            background: var(--input-background);
             color: var(--input-color);
+            background: var(--input-background);
+            @apply --input-picker;
+            padding: 0;
+          }
+          #picker #buttons {
+            display: -webkit-inline-flex;
+            display: -ms-inline-flexbox;
+            display: inline-flex;
+            position: relative;
+            align-self: flex-end;
+            align-items: center;
+            justify-content: flex-end;
+            color: var(--input-color);
+            background: var(--input-background);
           }
           #picker > * {
             padding: var(--input-picker-padding, 4px);
@@ -179,8 +193,8 @@
       static get _buttonTemplate() {
         return `
           ${super._buttonTemplate || ''}
-          <svg class="icon button confirm" viewBox="0 0 24 24" on-click="confirm" on-mouseup="close"><g><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></g></svg>
-          <svg class="icon button cancel" hidden$="[[autoConfirm]]" viewBox="0 0 24 24" on-click="cancel"><g><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></g></svg>
+          <button class="icon confirm" on-mouseup="close" tabindex="0"><svg viewBox="0 0 24 24" on-click="confirm"><g><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></g></svg></button>
+          <button class="icon cancel" on-click="cancel" hidden$="[[autoConfirm]]" tabindex="0"><svg viewBox="0 0 24 24"><g><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></g></svg></button>
         `;
       }
 
@@ -208,7 +222,7 @@
        */
       static get pickerTemplate() {
         return `
-          <div id="picker">
+          <div id="picker" class="dropdown" tabindex$="[[opened]]">
             <div id="buttons">
               ${this._buttonTemplate}
             <div>
@@ -291,39 +305,33 @@
 
       connectedCallback() {
         super.connectedCallback();
-        this._ensureAttribute('tabindex', 0);
-        this._addClickListener();
+        this._addBlurListener();
+        this._addKeyListener();
       }
 
       disconnectedCallback() {
         super.disconnectedCallback();
-        this._removeClickListener();
+        this._removeBlurListener();
+        this._removeKeyListener();
       }
 
-      _addClickListener() {
-        if (super._addClickListener) {
-          super._addClickListener();
-        }
-        // close on outer clicking
-        document.addEventListener('click', this.close.bind(this), {passive: true});
-        // prevent inner click to close the picker
-        this.addEventListener('click', this._clickHandler.bind(this),  {passive: true});
+      _addBlurListener() {
+        // close on blur
+        this.addEventListener('blur', this.close.bind(this), {passive: true});
       }
 
-      _removeClickListener() {
-        if (super._removeClickListener) {
-          super._removeClickListener();
-        }
-        // close on outer clicking
-        document.removeEventListener('click', this.close.bind(this), {passive: true});
-        // prevent inner click to close the picker
-        this.removeEventListener('click', this._clickHandler.bind(this),  {passive: true});
+      _removeBlurListener() {
+        this.removeEventListener('blur', this.close.bind(this), {passive: true});
       }
 
-      _clickHandler(e) {
-        if (e && e.stopPropagation) {
-          e.stopPropagation();
-        }
+      _addKeyListener() {
+        super._addKeyListener && super._addKeyListener();
+        this.addEventListener('keydown', this._checkKeycode.bind(this), {passive: true});
+      }
+
+      _removeKeyListener() {
+        super._removeKeyListener && super._removeKeyListener();
+        this.removeEventListener('keydown', this._checkKeycode.bind(this), {passive: true});
       }
 
       _nativeOnMobileChanged(nativeOnMobile) {
@@ -350,20 +358,20 @@
         if (!e) {
           return;
         }
-        if (this.opened) {
-          if (e.keyCode === 13 || e.keyCode === 32) { // space || enter
+        if (super._checkKeycode) {
+          super._checkKeycode(e);
+        }
+        if (e.keyCode === 13 || e.keyCode === 32) { // space || enter
+          if (this.opened) {
             this.confirm();
-            return;
+          } else {
+            this.open();
           }
-          if (e.keyCode === 27 && !this.noCancelOnEscKey) { // esc
-            this.cancel();
-            return;
-          }
-          if (super._checkKeycode) {
-            super._checkKeycode(e);
-          }
-        } else {
-          this.open();
+          return;
+        }
+        if (e.keyCode === 27 && !this.noCancelOnEscKey) { // esc
+          this.cancel();
+          return;
         }
       }
 

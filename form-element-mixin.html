@@ -57,6 +57,11 @@
         ]
       }
 
+      connectedCallback() {
+        super.connectedCallback();
+        this._ensureAttribute('tabindex', 0);
+      }
+
       _computeInvalid(required, value) {
         this.invalid = Boolean(required && !value);
       }

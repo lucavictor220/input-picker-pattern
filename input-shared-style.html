@@ -21,7 +21,7 @@
         /* initial mixins */
         --input-style: {
           border-radius: 3px;
-          padding: 0.2em 0.1em;
+          padding: 0.15em 0.1em;
           border: none;
           outline: none;
           text-align: center;
@@ -29,6 +29,7 @@
           box-sizing: content-box;
           -webkit-background-clip: padding-box;
           background-clip: padding-box;
+          vertical-align: middle;
           transition: background 150ms cubic-bezier(0.6, 1, 0.2, 1);
         };
         --input-focus: {
@@ -61,18 +62,30 @@
           border-color: var(--input-invalid-color);
         };
       }
-      input::-webkit-input-edit-text,
-      input::-webkit-input-placeholder,
-      input::-webkit-inner-spin-button,
-      input::-webkit-outer-spin-button,
-      input::-webkit-clear-button,
-      input::-webkit-calendar-picker-indicator {
+      input {
+        outline: none;
+        border-color: transparent;
+        font-family: inherit;
+        font-size: inherit;
+        display: inline-flex;
+        @apply --input-style;
+      }
+      input:hover {
+        @apply --input-focus;
+      }
+      ::-webkit-input-edit-text,
+      ::-webkit-input-placeholder,
+      ::-webkit-inner-spin-button,
+      ::-webkit-outer-spin-button,
+      ::-webkit-search-cancel-button,
+      ::-webkit-clear-button {
         color: currentColor;
-        fill: currentColor;
+        align-self: center;
         cursor: pointer;
       }
-      input::-webkit-calendar-picker-indicator:hover {
-        background: transparent;
+      ::-webkit-search-cancel-button,
+      ::-webkit-clear-button {
+        mix-blend-mode: luminosity;
       }
       input:invalid {
         @apply --input-invalid;
@@ -80,11 +93,33 @@
       input[disabled] {
         @apply --input-disabled;
       }
+      button {
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        appearance: none;
+        display: inline-flex;
+        background: transparent;
+        color: inherit;
+        font-family: inherit;
+        font-size: inherit;
+        border-width: 0;
+        padding: 0;
+        box-sizing: content-box;
+      }
+      button > * {
+        pointer-events: none;
+      }
       .icon {
         @apply --input-icon;
       }
+      .icon > svg {
+        height: 100%;
+        width: 100%;
+        fill: currentColor;
+      }
       .icon:focus,
       .icon:hover {
+        outline: none;
         @apply --input-focus;
       }
       [hidden] {
