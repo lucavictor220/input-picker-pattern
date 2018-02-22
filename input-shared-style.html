@@ -20,17 +20,18 @@
         --input-invalid-color: #e83953;
         /* initial mixins */
         --input-style: {
-          border-radius: 3px;
-          padding: 0.15em 0.1em;
+          display: inline-flex;
+          align-items: center;
+          outline: none;
+          padding: 0.1em 0.15em;
+          border-radius: 4px;
           border: none;
           outline: none;
           text-align: center;
           cursor: pointer;
-          box-sizing: content-box;
           -webkit-background-clip: padding-box;
           background-clip: padding-box;
-          vertical-align: middle;
-          transition: background 150ms cubic-bezier(0.6, 1, 0.2, 1);
+          transition: background 200ms cubic-bezier(0.6, 1, 0.2, 1);
         };
         --input-focus: {
           background: var(--input-focus-background);
@@ -46,7 +47,7 @@
           box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.14),
                       0 1px 8px 0 rgba(0, 0, 0, 0.12),
                       0 3px 3px -2px rgba(0, 0, 0, 0.4);
-          border-radius: 4px;
+          border-radius: 6px;
         };
         --input-icon: {
           border-radius: 4px;
@@ -54,9 +55,8 @@
           height: 16px;
           width: 16px;
           background: transparent;
-          transition: background 150ms cubic-bezier(0.6, 1, 0.2, 1);
+          transition: background 200ms cubic-bezier(0.6, 1, 0.2, 1);
           cursor: pointer;
-          fill: currentColor;
         };
         --input-invalid: {
           border-color: var(--input-invalid-color);
@@ -69,6 +69,7 @@
         font-size: inherit;
         display: inline-flex;
         @apply --input-style;
+        padding: 0.2em;
       }
       input:hover {
         @apply --input-focus;
@@ -86,6 +87,15 @@
       ::-webkit-search-cancel-button,
       ::-webkit-clear-button {
         mix-blend-mode: luminosity;
+      }
+      ::-moz-focus-inner {
+        border-style: none;
+        padding: 0;
+      }
+      ::-moz-focusring {
+        color: transparent;
+        border-style: none;
+        text-shadow: 0 0 0 transparent;
       }
       input:invalid {
         @apply --input-invalid;
