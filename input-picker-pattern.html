@@ -87,9 +87,11 @@
           #polyfill {
             display: -webkit-inline-flex;
             display: -ms-inline-flexbox;
-            display: inline-flex;;
+            display: inline-flex;
             align-items: center;
+            cursor: pointer;
             @apply --input-style;
+            padding: 0;
           }
           :host(:hover) #polyfill,
           :host(:focus) #polyfill {
@@ -293,11 +295,20 @@
           },
 
           /**
-           * Set to disable the tip of the picker
+           * Set to true to disable the tip of the picker
            */
           noTip: {
             type: Boolean,
             reflectToAttribute: true
+          },
+
+          /**
+           * Set to true to disable canceling the dropdown by clicking outside the picker.
+           */
+          noCancelOnOutsideClick: {
+            type: Boolean,
+            value: false,
+            observer: '_noCancelOnOutsideClickChanged'
           }
         }
       }
@@ -321,6 +332,20 @@
 
       _removeBlurListener() {
         this.removeEventListener('blur', this.close.bind(this), {passive: true});
+      }
+
+      _noCancelOnOutsideClickChanged(noCancelOnOutsideClick) {
+        if (!this.noCancelOnOutsideClick) {
+          document.addEventListener('click', this.cancel.bind(this), {passive: true});
+          this.addEventListener('click', this._stopPropagation, {passive: true});
+        } else {
+          document.removeEventListener('click', this.cancel.bind(this), {passive: true});
+          this.addEventListener('click', this._stopPropagation, {passive: true});
+        }
+      }
+
+      _stopPropagation(e) {
+        e && e.stopPropagation && e.stopPropagation();
       }
 
       _addKeyListener() {
