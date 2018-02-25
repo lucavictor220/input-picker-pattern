@@ -307,8 +307,7 @@
            */
           noCancelOnOutsideClick: {
             type: Boolean,
-            value: false,
-            observer: '_noCancelOnOutsideClickChanged'
+            value: false
           }
         }
       }
@@ -334,18 +333,19 @@
         this.removeEventListener('blur', this.close.bind(this), {passive: true});
       }
 
-      _noCancelOnOutsideClickChanged(noCancelOnOutsideClick) {
-        if (!this.noCancelOnOutsideClick) {
-          document.addEventListener('click', this.cancel.bind(this), {passive: true});
-          this.addEventListener('click', this._stopPropagation, {passive: true});
-        } else {
-          document.removeEventListener('click', this.cancel.bind(this), {passive: true});
-          this.addEventListener('click', this._stopPropagation, {passive: true});
-        }
+      _addCancelOnClickListener() {
+        document.addEventListener('click', this.cancel.bind(this), {passive: true});
+        // prevent when clicking on the picker that it is closes
+        this.addEventListener('click', this._stopPropagation, {passive: true});
+      }
+
+      _removeCancelOnClickListener() {
+        document.removeEventListener('click', this.cancel.bind(this), {passive: true});
+        this.removeEventListener('click', this._stopPropagation, {passive: true});
       }
 
       _stopPropagation(e) {
-        e && e.stopPropagation && e.stopPropagation();
+        e && e.stopPropagation();
       }
 
       _addKeyListener() {
@@ -408,6 +408,9 @@
           super.open();
         }
         this.opened = true;
+        if (!this.noCancelOnOutsideClick) {
+          this._addCancelOnClickListener();
+        }
       }
 
       /**
@@ -418,6 +421,7 @@
         if (e && e.stopPropagation) {
           e.stopPropagation();
         }
+        this._removeCancelOnClickListener();
         if (super.close) {
           super.close();
         }
@@ -461,12 +465,11 @@
         if (e && e.stopPropagation) {
           e.stopPropagation();
         }
-        if (this.autoConfirm) {
-          this.confirm();
-          return;
-        }
         if (super.cancel) {
           super.cancel();
+        }
+        if (this.autoConfirm) {
+          this.confirm();
         }
         this.close();
       }
