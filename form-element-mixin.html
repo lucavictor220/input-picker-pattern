@@ -68,7 +68,7 @@
 
       connectedCallback() {
         super.connectedCallback();
-        this._ensureAttribute('tabindex', true);
+        this._ensureAttribute('tabindex', 0);
       }
 
       _computeInvalid(required, value) {
@@ -84,6 +84,20 @@
        */
       validate() {
         return !this.invalid;
+      }
+
+      /**
+       * attach dom with `delegatesFocus: true` so that the element is also focussed while its's children are too, and to autofocus to first tabable
+       */
+      _attachDom(dom) {
+        if (!this.shadowRoot) {
+          this.attachShadow({
+              mode: 'open',
+              delegatesFocus: true
+          });
+          this.shadowRoot.appendChild(dom);
+        }
+        return this.shadowRoot;
       }
     }
   }
