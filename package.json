@@ -25,5 +25,13 @@
     "type": "git",
     "url": "git+https://github.com/fooloomanzoo/datetime-picker.git"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@polymer/polymer": "^2",
+    "@polymer/iron-overlay-behavior": "*"
+  },
+  "devDependencies": {
+    "@webcomponents/webcomponentsjs": "*",
+    "@polymer/iron-form": "*"
+  }
 }
