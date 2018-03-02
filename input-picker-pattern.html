@@ -108,24 +108,21 @@
             @apply --input-picker;
             padding: 0;
           }
-          #picker #buttons {
-            display: -webkit-inline-flex;
-            display: -ms-inline-flexbox;
-            display: inline-flex;
-            position: relative;
-            align-self: flex-end;
-            align-items: center;
-            justify-content: flex-end;
-            color: var(--input-color);
-            background: var(--input-background);
-          }
           #picker > * {
             padding: var(--input-picker-padding, 4px);
             box-shadow: none !important;
             box-sizing: border-box;
             float: left;
-            clear: both;
-            width: 100%;
+          }
+          #picker #buttons {
+            display: inline-flex;
+            position: relative;
+            float: right;
+            align-items: flex-end;
+            justify-content: flex-end;
+            box-sizing: content-box;
+            color: var(--input-color);
+            background: var(--input-background);
           }
           #picker > :first-child {
             border-top-left-radius: inherit;
