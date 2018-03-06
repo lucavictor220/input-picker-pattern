@@ -113,6 +113,7 @@
             padding: var(--input-picker-padding, 4px);
             box-shadow: none !important;
             box-sizing: border-box;
+            flex-shrink: 0;
           }
           #picker #buttons {
             display: inline-flex;
@@ -176,7 +177,7 @@
       static get buttonTemplate() {
         return `
           ${super.buttonTemplate || ''}
-          <button class="icon confirm" on-click="confirm" on-keydown="_stopPropagation">${this._iconConfirmTemplate}</button>
+          <button class="icon confirm" hidden$="[[disabled]]" on-click="confirm" on-keydown="_stopPropagation">${this._iconConfirmTemplate}</button>
           <button class="icon cancel" on-click="cancel" on-keydown="_stopPropagation" hidden$="[[autoConfirm]]">${this._iconCloseTemplate}</button>
         `;
       }
@@ -497,6 +498,10 @@
       confirm(e) {
         if (e && e.stopPropagation) {
           e.stopPropagation();
+        }
+        if (this.disabled) {
+          this.cancel();
+          return;
         }
         if (super.confirm) {
           super.confirm();
