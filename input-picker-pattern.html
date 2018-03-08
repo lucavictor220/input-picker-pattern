@@ -79,18 +79,14 @@
         return `
           ${super.customStyleContent || ''}
           :host {
-            display: -webkit-inline-flex;
-            display: -ms-inline-flexbox;
             display: inline-flex;
             position: relative;
           }
           #polyfill {
-            display: -webkit-inline-flex;
-            display: -ms-inline-flexbox;
+            @apply --input-style;
             display: inline-flex;
             align-items: center;
             cursor: pointer;
-            @apply --input-style;
             padding: 0;
           }
           :host(:hover) #polyfill,
@@ -102,15 +98,15 @@
             --input-background: transparent;
           }
           #picker {
-            display: inline-flex;
-            flex-flow: column nowrap;
             color: var(--input-color);
             background: var(--input-background);
             @apply --input-picker;
+            display: inline-flex;
+            flex-flow: column nowrap;
             padding: 0;
           }
           #picker > * {
-            padding: var(--input-picker-padding, 4px);
+            padding: var(--input-picker-padding, 0.25em);
             box-shadow: none !important;
             box-sizing: border-box;
             flex-shrink: 0;
