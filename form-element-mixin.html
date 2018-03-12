@@ -46,7 +46,7 @@
            * value of the input
            */
           value: {
-            type: String
+            type: Object
           },
 
           /**
@@ -55,6 +55,14 @@
           _valueIsSet: {
             type: Boolean,
             value: false
+          },
+
+          /**
+           * defines the property that should be used for the value
+           */
+          propertyForValue: {
+            type: String,
+            observer: '_createReflectPropertyToValueObserver'
           }
         }
       }
@@ -98,6 +106,21 @@
           this.shadowRoot.appendChild(dom);
         }
         return this.shadowRoot;
+      }
+
+      _createReflectPropertyToValueObserver(prop) {
+        if (prop !== undefined) {
+          this._createPropertyObserver(prop, '_reflectPropertyToValue', true);
+          this._createPropertyObserver('value', '_reflectValueToProperty', true);
+        }
+      }
+
+      _reflectPropertyToValue(v) {
+        this.set('value', v);
+      }
+
+      _reflectValueToProperty(v) {
+        this.set(this.propertyForValue, v);
       }
     }
   }
