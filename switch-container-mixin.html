@@ -126,11 +126,12 @@
           return;
         }
 
-        let prop = s.getAttribute && s.getAttribute('prop');
-        const step = (s.getAttribute && s.getAttribute('step')) || 1;
+        let prop = s.getAttribute('prop');
+        const step = s.getAttribute('step') || 1;
+        const sign = s.hasAttribute('invert') ? -1 : 1;
         s.setAttribute('active', '');
-        this._incremProp(prop, +step);
-        this._activeIncremJob = setInterval(this._incremProp.bind(this, prop, +step), this.dwellTime);
+        this._incremProp(prop, +step*sign);
+        this._activeIncremJob = setInterval(this._incremProp.bind(this, prop, +step*sign), this.dwellTime);
         this._activeSwitch = s;
       }
 

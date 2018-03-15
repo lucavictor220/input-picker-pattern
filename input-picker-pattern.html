@@ -69,6 +69,7 @@
           ${super.customStyleContent || ''}
           :host {
             display: inline-flex;
+            align-items: center;
             position: relative;
           }
           #polyfill {
@@ -77,18 +78,13 @@
             align-items: center;
             cursor: pointer;
             padding: 0;
-          }
-          :host(:hover) #polyfill,
-          :host(:focus) #polyfill {
-            @apply --input-focus;
-          }
-          #polyfill > .replacement {
-            --input-color: currentColor;
-            --input-background: transparent;
+            border-width: 0;
           }
           #picker {
-            color: var(--input-color);
-            background: var(--input-background);
+            color: var(--input-picker-color, var(--input-color));
+            background: var(--input-picker-background, var(--input-background));
+            box-shadow: var(--input-picker-box-shadow);
+            border-radius: var(--input-picker-border-radius);
             @apply --input-picker;
             display: inline-flex;
             flex-flow: column nowrap;
@@ -98,7 +94,7 @@
             flex-flow: row nowrap;
           }
           #picker > * {
-            padding: var(--input-picker-padding, 0.25em);
+            padding: var(--input-picker-padding);
             box-shadow: none !important;
             box-sizing: border-box;
             flex-shrink: 0;
