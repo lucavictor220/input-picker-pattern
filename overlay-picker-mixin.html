@@ -126,6 +126,8 @@
         this.positionTarget = this;
         this._set_sizingTarget(this.$.overlay);
         this.fit();
+        this._initializeInputs = this._initializeInputs.bind(this);
+        this.addEventListener('iron-overlay-opened', this._initializeInputs, true);
       }
 
       /**
@@ -138,6 +140,17 @@
       open() {
         super.open();
         this.fit();
+      }
+
+      _initializeInputs() {
+        // neccessary because the overlay is hidden initially and the inputs are sized dynamically and so a width has still to be computed for the inputs
+        const inputs = this.root.querySelectorAll('integer-input, number-input, text-input');
+        if (inputs) {
+          Array.prototype.forEach.call(inputs, inp => {
+            inp.resize && inp.resize();
+          });
+          this.removeEventListener('iron-overlay-opened', this._initializeInputs, true);
+        }
       }
 
       /**

@@ -35,7 +35,7 @@ styles for used for a tip of the dropdown
       :host([horizontal-align="left"]) .dropdown:after {
         top: calc(-2 * var(--dropdown-tip-size, 0));
         left: calc(2 * var(--dropdown-tip-size, 0));
-        border-bottom-color: var(--input-background, #000);
+        border-bottom-color: var(--input-picker-background, var(--input-background));
       }
 
       :host([horizontal-align="right"][vertical-align]) .dropdown:after {
@@ -52,7 +52,7 @@ styles for used for a tip of the dropdown
         top: auto;
         bottom: calc(-2 * var(--dropdown-tip-size, 0));
         border-bottom-color: transparent;
-        border-top-color: var(--input-background, #000);
+        border-top-color: var(--input-picker-background, var(--input-background));
       }
 
       :host([horizontal-align][vertical-align="middle"]) .dropdown:after {
@@ -61,7 +61,7 @@ styles for used for a tip of the dropdown
         left: calc(-2 * var(--dropdown-tip-size, 0));
         border-top-color: transparent;
         border-bottom-color: transparent;
-        border-right-color: var(--input-background, #000);
+        border-right-color: var(--input-picker-background, var(--input-background));
         transform: translate(0%, 50%);
       }
 
@@ -69,7 +69,7 @@ styles for used for a tip of the dropdown
         left: auto;
         right: calc(-2 * var(--dropdown-tip-size, 0));
         border-right-color: transparent;
-        border-left-color: var(--input-background, #000);
+        border-left-color: var(--input-picker-background, var(--input-background));
       }
 
       :host([horizontal-align="center"][vertical-align="middle"]) .dropdown:after {

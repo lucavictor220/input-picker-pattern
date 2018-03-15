@@ -81,10 +81,10 @@
             border-width: 0;
           }
           #picker {
-            color: var(--input-picker-color, var(--input-color));
-            background: var(--input-picker-background, var(--input-background));
-            box-shadow: var(--input-picker-box-shadow);
+            color: var(--input-picker-color);
+            background: var(--input-picker-background);
             border-radius: var(--input-picker-border-radius);
+            box-shadow: var(--input-picker-box-shadow);
             @apply --input-picker;
             display: inline-flex;
             flex-flow: column nowrap;
@@ -94,6 +94,8 @@
             flex-flow: row nowrap;
           }
           #picker > * {
+            color: var(--input-picker-color);
+            background: var(--input-picker-background);
             padding: var(--input-picker-padding);
             box-shadow: none !important;
             box-sizing: border-box;
@@ -105,8 +107,6 @@
             align-self: stretch;
             align-items: flex-end;
             justify-content: flex-end;
-            color: var(--input-color);
-            background: var(--input-background);
           }
           #picker > :first-child {
             border-top-left-radius: inherit;

@@ -60,7 +60,7 @@
       }
 
       _addSwitchListener() {
-        this.addEventListener('focus', this._stopActiveIncremJob, {passive: true});
+        // this.addEventListener('focus', this._stopActiveIncremJob, {passive: true});
         this.addEventListener('blur', this._stopActiveIncremJob, {passive: true});
         this.addEventListener('contextmenu', this._stopActiveIncremJob, {passive: true});
         const switchs = this.root.querySelectorAll('.switch');
@@ -79,7 +79,7 @@
       }
 
       _removeSwitchListener() {
-        this.removeEventListener('focus', this._stopActiveIncremJob, {passive: true});
+        // this.removeEventListener('focus', this._stopActiveIncremJob, {passive: true});
         this.removeEventListener('blur', this._stopActiveIncremJob, {passive: true});
         this.removeEventListener('contextmenu', this._stopActiveIncremJob, {passive: true});
         const switchs = this.root.querySelectorAll('.switch');
