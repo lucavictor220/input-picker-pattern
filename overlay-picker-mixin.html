@@ -128,6 +128,7 @@
         this.fit();
         this._initializeInputs = this._initializeInputs.bind(this);
         this.addEventListener('iron-overlay-opened', this._initializeInputs, true);
+        this.addEventListener('iron-resize', this._initializeInputs, true);
       }
 
       /**
