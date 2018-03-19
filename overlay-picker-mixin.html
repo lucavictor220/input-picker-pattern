@@ -1,5 +1,5 @@
 <link rel="import" href="overlay-element.html">
-<link rel="import" href="input-shared-style.html">
+<link rel="import" href="input-picker-shared-style.html">
 <link rel="import" href="dropdown-tip-style.html">
 
 <script>
@@ -104,9 +104,9 @@
         `;
       }
 
-      static get customStyleContent() {
+      static get styleContent() {
         return `
-          ${super.customStyleContent || ''}
+          ${super.styleContent || ''}
           #overlay {
             display: -webkit-inline-flex;
             display: -ms-inline-flexbox;
@@ -117,8 +117,8 @@
         `;
       }
 
-      static get customStyleToInclude() {
-        return 'input-shared-style dropdown-tip-style';
+      static get styleToInclude() {
+        return 'input-picker-shared-style dropdown-tip-style';
       }
 
       connectedCallback() {
