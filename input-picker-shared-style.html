@@ -14,7 +14,9 @@
 
         --input-color: currentColor;
         --input-background: transparent;
-        --input-border: thin solid transparent;
+        --input-border-width: thin;
+        --input-border-style: dotted;
+        --input-border-color: transparent;
         --input-padding: 0.3em;
         --input-border-radius: 0.3em;
         --input-align: center;
@@ -46,11 +48,13 @@
         --input-invalid-background: transparent;
         --input-invalid-border: thin dotted #e83953);
 
-        --input-icon-border-radius: 0.25em;
+        --input-icon-border-radius: 0.3em;
         --input-icon-padding: 0.5em;
         --input-icon-height: 1em;
         --input-icon-width: 1em;
         --input-icon-background: transparent;
+
+        --inner-input-focus-background: rgba(0,0,0,0.08);
 
         --input-disabled: {
           font-weight: lighter;
@@ -100,7 +104,9 @@
         background: var(--input-background);
         border-radius: var(--input-border-radius);
         transition: var(--input-transition);
-        border: var(--input-border);
+        border-width: var(--input-border-width);
+        border-style: var(--input-border-style);
+        border-color: var(--input-border-color);
         padding: var(--input-padding);
         @apply --input-style;
       }
