@@ -25,13 +25,14 @@
 
         --input-focus-color: #f1f1f1;
         --input-focus-background: var(--primary-color, #394FE8);
-        --input-focus-border: thin solid transparent;
+        --input-focus-border-style: dotted;
+        --input-focus-border-color: transparent;
 
         --input-placeholder-color: currentColor;
         --input-placeholder-opacity: 0.75;
 
         --input-selection-color: var(--input-focus-color);
-        --input-selection-background: rgba(255,255,255,0.1);
+        --input-selection-background: rgba(255,255,255,0.5);
 
         --input-picker-color: #d5d5d5;
         --input-picker-background: #252525;
@@ -80,10 +81,9 @@
         -moz-appearance: none;
         -webkit-appearance: none;
         appearance: none;
-        border-style: none;
         text-align-last: center;
         background-image: none;
-        border-width: 0;
+        border-color: transparent;
       }
 
       button,
@@ -127,7 +127,8 @@
       input:hover {
         color: var(--input-focus-color);
         background: var(--input-focus-background);
-        border: var(--input-focus-border);
+        border-style: var(--input-focus-border-style);
+        border-color: var(--input-focus-border-color);
         @apply --input-focus;
       }
 
@@ -186,7 +187,8 @@
       .icon[active] {
         color: var(--input-focus-color);
         background: var(--input-focus-background);
-        border: var(--input-focus-border);
+        border-style: var(--input-focus-border-style);
+        border-color: var(--input-focus-border-color);
         @apply --input-focus;
         outline: none;
       }
