@@ -112,32 +112,28 @@
            * placeholder string
            */
           placeholder: {
-            type: String,
-            observer: '_computeMinWidth'
+            type: String
           },
 
           /**
            * default value of the input
            */
           default: {
-            type: String,
-            observer: '_computeMinWidth'
+            type: String
           },
 
           /**
            * minlength of the input
            */
           minlength: {
-            type: Number,
-            observer: '_computeMinWidth'
+            type: Number
           },
 
           /**
            * if true, the length of the value is not used for computing the size-attribute
            */
           noAutoWidth: {
-            type: Boolean,
-            observer: '_computeMinWidth'
+            type: Boolean
           },
 
           /**
@@ -151,23 +147,23 @@
            * string that is used to compute the minimal width of the input
            */
           _minWidthString: {
-            type: String,
-            observer: 'resize'
+            type: String
           },
 
           /**
            * if `true`, the input is not displayed
            */
           hidden: {
-            type: Boolean,
-            observer: 'resize'
+            type: Boolean
           }
         }
       }
 
       static get observers() {
         return [
-          '_defaultChanged(default)'
+          '_defaultChanged(default)',
+          '_computeMinWidth(noAutoWidth, minlength, default, placeholder)',
+          'resize(_minWidthString, hidden)'
         ]
       }
 
