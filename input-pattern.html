@@ -21,6 +21,7 @@
           </style>
           ${this.inputTemplate}
           <div id="size">[[_input]]</div>
+          <div id="minsize">[[_minWidthString]]</div>
         `;
       }
 
@@ -36,6 +37,7 @@
             justify-content: center;
             box-sizing: content-box;
           }
+          #minsize,
           #size {
             display: block;
             overflow: visible;
@@ -289,34 +291,20 @@
       }
 
       /**
-       * manually resize the minsize of the input, when the input is for example initially hidden
+       * called automatically when static `_minWidthString` changes, but can called manually to resize the minwidth of the input, when the input is for example initially hidden
        */
       resize() {
         if (this._minSizeJob) {
           return;
         }
-        let _minSizeElement = document.createElement('div');
-        _minSizeElement.style.cssText = window.getComputedStyle(this.$.size, null).cssText;
-        _minSizeElement.style.width = '';
-        _minSizeElement.style.minWidth = '';
-        _minSizeElement.style.position = 'fixed';
-        _minSizeElement.style.display = 'block';
-        _minSizeElement.style.right = 'auto';
-        _minSizeElement.style.bottom = 'auto';
-        _minSizeElement.innerHTML = this._minWidthString || '0';
-        /* create an element for sizing on document level if the number-input is hidden */
-        document.body.appendChild(_minSizeElement);
 
         const minsizer = () => {
-          const width = _minSizeElement.getBoundingClientRect().width;
+          const width = this.$.minsize.getBoundingClientRect().width;
           this._minSizeJob = null;
           if (width === 0) {
-            _minSizeElement.innerHTML = this._minWidthString || '0';
             this._minSizeJob = requestAnimationFrame(minsizer.bind(this));
           } else {
             this.$.input.style.minWidth = `${width}px`;
-            document.body.removeChild(_minSizeElement);
-            _minSizeElement = null;
             this._debouncedComputeWidth();
           }
         }
@@ -327,7 +315,6 @@
         if (this._activeResizeJob) {
           clearTimeout(this._activeResizeJob);
         }
-        // this._minWidth || this.resize();
         this._activeResizeJob = setTimeout(this._computeWidth.bind(this), 0);
       }
 
