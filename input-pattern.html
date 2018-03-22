@@ -20,7 +20,7 @@
             ${this.styleTemplate}
           </style>
           ${this.inputTemplate}
-          <div id="size">[[_input]]</div>
+          <div id="size">[[input]]</div>
           <div id="minsize">[[_minWidthString]]</div>
         `;
       }
@@ -40,6 +40,8 @@
           #minsize,
           #size {
             display: block;
+            max-width: inherit;
+            min-width: inherit;
             overflow: visible;
             font-family: inherit;
             font-size: inherit;
@@ -74,10 +76,11 @@
         return `
           <input id="input"
             type="[[type]]"
-            value="{{_input::input}}"
+            value="{{input::input}}"
             placeholder="[[placeholder]]"
             required="[[required]]"
             disabled="[[disabled]]"
+            maxlength="[[maxlength]]"
             spellcheck="false"
             autocomplete="off">
         `;
@@ -95,14 +98,16 @@
           },
 
           /**
-           * live value of the input
+           * the immediate input string
            */
-          _input: {
-            type: String
+          input: {
+            type: String,
+            notify: true,
+            observer: '_inputChanged'
           },
 
           /**
-           * value string of the input
+           * the value of the input
            */
           value: {
             type: String,
@@ -111,23 +116,30 @@
           },
 
           /**
-           * placeholder string
+           * the placeholder string
            */
           placeholder: {
             type: String
           },
 
           /**
-           * default value of the input
+           * the default value of the input
            */
           default: {
             type: String
           },
 
           /**
-           * minlength of the input
+           * the minlength of the input
            */
           minlength: {
+            type: Number
+          },
+
+          /**
+           * the maxlength of the input
+           */
+          maxlength: {
             type: Number
           },
 
@@ -243,29 +255,33 @@
        */
       _inputChanged(input) {
         this.value = input;
-        this._debouncedComputeWidth();
+        if (this.autoResize) {
+          this._debouncedComputeWidth();
+        }
       }
 
       /*
        * @overwrite
        */
       _valueChanged(value) {
-        this._input = value;
+        this.input = value;
       }
 
       _defaultChanged(def) {
-        if (!this._input && def) {
-          this._input = def;
+        if (!this.input && def) {
+          this.input = def;
         }
       }
 
       _checkInput(e) {
-        this._inputChanged(this._input || this.default || '');
+        this._inputChanged(this.input || '');
+        this._debouncedComputeWidth();
         e && e.stopPropagation && e.stopPropagation();
       }
 
       _updateValue(e) {
         this._valueChanged(this.value);
+        this._debouncedComputeWidth();
         e && e.stopPropagation && e.stopPropagation();
       }
 
