@@ -24,13 +24,15 @@
         cursor: var(--input-cursor, initial);
         color: var(--input-color, inherit);
         background: var(--input-background, transparent);
-        transition: var(--input-transition, background 250ms cubic-bezier(0.6, 1, 0.2, 1));
-        text-align: var(--input-allign, center);
+        transition-duration: var(--input-transition-duration, 250ms);
+        transition-timing-function: var(--input-transition-timing-function, cubic-bezier(0.6, 1, 0.2, 1));
+        transition-property: var(--input-transition-property, background);
+        text-align: var(--input-align, center);
         padding: var(--input-padding, 0.2em);
         border-radius: var(--input-border-radius, 0.25em);
         border-width: var(--input-border-width, thin);
         border-style: var(--input-border-style, dotted);
-        border-color: var(--input-border-color, transparent);
+        border-color: var(--input-border-color, rgba(0,0,0,0.25));
         @apply --input-style;
         box-sizing: border-box;
         -webkit-background-clip: padding-box;
@@ -42,7 +44,7 @@
       #input:hover,
       #input:focus {
         color: var(--input-focus-color, inherit);
-        background: var(--input-focus-background, rgba(0,0,0,0.16));
+        background: var(--input-focus-background, rgba(0,0,0,0.1));
         border-style: var(--input-focus-border-style, dotted);
         border-color: var(--input-focus-border-color, currentColor);
         outline: none;
@@ -51,7 +53,7 @@
       /** will be ignored by IE **/
       #input:focus-within {
         color: var(--input-focus-color, inherit);
-        background: var(--input-focus-background, rgba(0,0,0,0.16));
+        background: var(--input-focus-background, rgba(0,0,0,0.1));
         border-style: var(--input-focus-border-style, dotted);
         border-color: var(--input-focus-border-color, currentColor);
         outline: none;
@@ -60,7 +62,7 @@
       :host([invalid]) #input,
       #input:invalid {
         color: var(--input-invalid-color, inherit);
-        background: var(--input-invalid-background, rgba(255,0,0,0.16));
+        background: var(--input-invalid-background, rgba(255,0,0,0.1));
         border-style: var(--input-invalid-border-style, dotted);
         border-color: var(--input-invalid-border-color, rgba(255,0,0,0.5));
         @apply --input-invalid;
@@ -84,7 +86,7 @@
       ::placeholder {
         color: var(--input-placeholder-color, inherit);
         opacity: var(--input-placeholder-opacity, 0.75);
-        text-align: var(--input-placeholder-allign, center);
+        text-align: var(--input-placeholder-align, center);
         @apply --input-placeholder;
       }
       ::-moz-selection {
