@@ -180,10 +180,7 @@
         this._checkInput = this._checkInput.bind(this);
         this._checkKeycode = this._checkKeycode.bind(this);
         this._addEventListeners();
-        this._debouncedComputeWidth();
-        setTimeout(() => {
-          this.resize();
-        }, 0)
+        requestAnimationFrame(this.resize.bind(this), 0);
       }
 
       disconnectedCallback() {
