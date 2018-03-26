@@ -62,13 +62,6 @@
             align-items: center;
             position: relative;
           }
-          #polyfill {
-            @apply --input-style;
-            display: inline-flex;
-            align-items: center;
-            padding: 0;
-            border-width: 0;
-          }
           #picker #buttons {
             display: inline-flex;
             position: relative;
@@ -99,8 +92,8 @@
        */
       static get polyfillTemplate() {
         return `
-          <div id="polyfill" on-click="open">
-            ${this.polyfillInputTemplate}
+          <div id="input" on-click="open">
+            ${this.inputTemplate}
           </div>
           ${this.pickerTemplate}
         `;
@@ -140,8 +133,8 @@
        * template for the replacement of the native input elements
        * @type {string}
        */
-      static get polyfillInputTemplate() {
-        return '';
+      static get inputTemplate() {
+        return `${super.inputTemplate || ''}`;
       }
 
       /**

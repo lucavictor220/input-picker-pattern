@@ -39,24 +39,8 @@
           }
           #minsize,
           #size {
-            display: block;
-            max-width: inherit;
             min-width: inherit;
-            overflow: visible;
-            font-family: inherit;
-            font-size: inherit;
-            font-weight: inherit;
-            font-style: inherit;
-            color: inherit;
-            background: transparent;
-            outline: none;
-            line-height: normal;
-            padding: var(--input-padding, 0.25em);
-            border-radius: var(--input-border-radius, 0.25em);
-            border-width: var(--input-border-width, thin);
-            border-style: var(--input-border-style, dotted);
-            border-color: var(--input-border-color, transparent);
-            @apply --input-style;
+            max-width: inherit;
             box-sizing: border-box;
             margin: 0;
             position: fixed;
@@ -64,6 +48,9 @@
             visibility: hidden !important;
             opacity: 0 !important;
             pointer-events: none !important;
+          }
+          #input {
+            width: 0;
           }
         `;
       }
@@ -103,15 +90,6 @@
             type: String,
             notify: true,
             observer: '_inputChanged'
-          },
-
-          /**
-           * the value of the input
-           */
-          value: {
-            type: String,
-            notify: true,
-            observer: '_valueChanged'
           },
 
           /**
@@ -161,6 +139,14 @@
            */
           hidden: {
             type: Boolean
+          },
+
+          /**
+           * defines the property that should be used for the value
+           */
+          propertyForValue: {
+            type: String,
+            value: 'input'
           }
         }
       }
@@ -243,17 +229,10 @@
        * @overwrite
        */
       _inputChanged(input) {
-        this.value = input;
+        this._reflectPropertyToValue(input);
         if (this.autoResize) {
           this._debouncedComputeWidth();
         }
-      }
-
-      /*
-       * @overwrite
-       */
-      _valueChanged(value) {
-        this.input = value;
       }
 
       _defaultChanged(def) {
@@ -269,7 +248,7 @@
       }
 
       _updateValue(e) {
-        this._valueChanged(this.value);
+        this._reflectValueToProperty(this.value);
         this._debouncedComputeWidth();
         e && e.stopPropagation && e.stopPropagation();
       }

@@ -116,6 +116,9 @@
         if (prop !== undefined) {
           this._createPropertyObserver(prop, '_reflectPropertyToValue', true);
           this._createPropertyObserver('value', '_reflectValueToProperty', true);
+          if (this.value !== undefined) {
+            this._reflectValueToProperty(this.value);
+          }
         }
       }
 
