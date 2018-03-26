@@ -299,7 +299,7 @@
        * called automatically when static `_minWidthString` changes, but can called manually to resize the minwidth of the input, when the input is for example initially hidden
        */
       resize() {
-        if (this._minSizeJob || !this._minWidth) {
+        if (this._minSizeJob || !this._minWidthString) {
           return;
         }
 

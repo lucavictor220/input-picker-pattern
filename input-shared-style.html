@@ -45,6 +45,7 @@
       #input:focus {
         color: var(--input-focus-color, inherit);
         background: var(--input-focus-background, rgba(0,0,0,0.1));
+        border-width: var(--input-border-width, thin);
         border-style: var(--input-focus-border-style, dotted);
         border-color: var(--input-focus-border-color, currentColor);
         outline: none;
@@ -54,6 +55,7 @@
       #input:focus-within {
         color: var(--input-focus-color, inherit);
         background: var(--input-focus-background, rgba(0,0,0,0.1));
+        border-width: var(--input-border-width, thin);
         border-style: var(--input-focus-border-style, dotted);
         border-color: var(--input-focus-border-color, currentColor);
         outline: none;
@@ -63,6 +65,7 @@
       #input:invalid {
         color: var(--input-invalid-color, inherit);
         background: var(--input-invalid-background, rgba(255,0,0,0.1));
+        border-width: var(--input-border-width, thin);
         border-style: var(--input-invalid-border-style, dotted);
         border-color: var(--input-invalid-border-color, rgba(255,0,0,0.5));
         @apply --input-invalid;
@@ -71,6 +74,7 @@
       :host([invalid]) #input:focus,
       #input:invalid:focus,
       #input:invalid:focus {
+        border-width: var(--input-border-width, thin);
         border-style: var(--input-focus-border-style, dotted);
         border-color: var(--input-focus-border-color, currentColor);
       }
