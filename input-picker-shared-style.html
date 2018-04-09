@@ -11,19 +11,26 @@
         position: relative;
         box-sizing: content-box;
 
-        --input-cursor: pointer;
-        --input-focus-color: #f1f1f1;
-        --input-focus-background: var(--primary-color, #394FE8);
-        --input-picker-color: #e5e5e5;
+        --input-picker-color: #dfdfdf;
         --input-picker-background: #252525;
         --input-picker-border-radius: 0.5em;
         --input-picker-padding: 0.25em;
         --input-picker-box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 1px 8px 0 rgba(0, 0, 0, 0.12), 0 3px 3px -2px rgba(0, 0, 0, 0.4);
+
         --input-icon-border-radius: 0.3em;
         --input-icon-padding: 0.5em;
         --input-icon-height: 1em;
         --input-icon-width: 1em;
         --input-icon-background: transparent;
+
+        --input-cursor: pointer;
+
+        --inner-input-border-width: thin;
+        --inner-input-padding: 0.1em;
+        --inner-input-border-radius: 0.2em;
+        --inner-input-focus-color: #f1f1f1;
+        --inner-input-focus-background: var(--primary-color, #394FE8);
+
         --input-disabled: {
           font-weight: lighter;
         };
@@ -36,7 +43,28 @@
         appearance: none;
         text-align-last: var(--input-align, center);
         background-image: none;
-        border: thin solid transparent;
+        border: var(--inner-input-border-width, thin) solid var(--inner-input-border-color, transparent);
+      }
+
+      button:focus,
+      button:hover,
+      select:focus,
+      select:hover {
+        border-width: var(--inner-input-border-width, thin);
+        color: var(--inner-input-focus-color, inherit);
+        background-color: var(--inner-input-focus-background, rgba(0,0,0,0.1));
+        outline: none;
+        @apply --input-focus;
+      }
+
+      select:focus option,
+      select option {
+        color: var(--input-color, inherit);
+        background-color: var(--input-background, transparent);
+        outline: none;
+        font-family: inherit;
+        font-size: inherit;
+        font-weight: inherit;
       }
 
       button > * {
@@ -55,7 +83,6 @@
         @apply --input-icon;
         box-sizing: content-box;
         flex-shrink: 0;
-        border: thin solid transparent;
         transition-property: background-color, border-color;
       }
 
@@ -66,7 +93,7 @@
       }
 
       .icon:focus {
-        border-color: var(--input-focus-background);
+        border-color: var(--inner-input-focus-background);
         background: transparent;
         outline: none;
       }
@@ -76,11 +103,11 @@
       .icon:not(.switch):focus,
       .icon:active,
       .icon[active] {
-        color: var(--input-focus-color);
-        background-color: var(--input-focus-background);
-        border-width: var(--input-border-width, thin);
+        color: var(--inner-input-focus-color);
+        background-color: var(--inner-input-focus-background);
+        border-width: var(--inner-input-border-width, thin);
         border-style: solid;
-        border-color: var(--input-focus-background);
+        border-color: var(--inner-input-focus-background);
         @apply --input-focus;
         outline: none;
       }

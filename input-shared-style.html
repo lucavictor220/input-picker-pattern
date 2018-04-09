@@ -3,17 +3,17 @@
 <dom-module id="input-shared-style">
   <template>
     <style>
-      :host([hidden]) {
-        display: none;
-      }
-      :host([disabled]) {
-        pointer-events: none;
-      }
-      :host(:focus) {
-        outline: none;
-      }
+      :host([hidden]),
       [hidden] {
         display: none !important;
+      }
+      :host([disabled]),
+      [disabled] {
+        pointer-events: none;
+      }
+      :host(:focus),
+      :focus {
+        outline: none;
       }
 
       /**
@@ -33,6 +33,9 @@
 
       button,
       select {
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        appearance: none;
         border: thin solid transparent;
       }
 
@@ -56,7 +59,7 @@
         transition-timing-function: var(--input-transition-timing-function, cubic-bezier(0.6, 1, 0.2, 1));
         transition-property: var(--input-transition-property, background-color);
         text-align: var(--input-align, center);
-        padding: var(--input-padding, 0.2em 0.3em);
+        padding: var(--input-padding, 0.25em);
         border-radius: var(--input-border-radius, 0.25em);
         @apply --input-style;
         box-sizing: border-box;
@@ -73,37 +76,19 @@
        #input:hover,
        #input:focus,
        input:focus,
-       input:hover {
+       input:hover,
+       select:focus,
+       select:hover,
+       button:focus,
+       button:hover {
          border-style: var(--input-focus-border-style, dotted);
          border-color: var(--input-focus-border-color, rgba(0,0,0,0.5));
+         border-width: var(--input-border-width, thin);
+         color: var(--input-focus-color, inherit);
+         background-color: var(--input-focus-background, rgba(0,0,0,0.1));
+         outline: none;
+         @apply --input-focus;
        }
-
-      :host(:focus) #input,
-      :host(:hover) #input,
-      #input:hover,
-      #input:focus,
-      button:focus,
-      button:hover,
-      select:focus,
-      select:hover,
-      input:focus,
-      input:hover {
-        border-width: var(--input-border-width, thin);
-        color: var(--input-focus-color, inherit);
-        background-color: var(--input-focus-background, rgba(0,0,0,0.1));
-        outline: none;
-        @apply --input-focus;
-      }
-
-      select:focus option,
-      select option {
-        color: var(--input-color);
-        background: var(--input-background);
-        outline: none;
-        font-family: inherit;
-        font-size: inherit;
-        font-weight: inherit;
-      }
 
       /**
        * invalid
@@ -134,9 +119,9 @@
       /**
        * inner inputs
        */
-      #input integer-input,
-      #input number-input,
-      #input text-input {
+      integer-input,
+      number-input,
+      text-input {
         --input-color: var(--inner-input-color, currentColor);
         --input-background: var(--inner-input-background, transparent);
         --input-border-width: var(--inner-input-border-width, thin);
@@ -148,6 +133,7 @@
         --input-focus-background: var(--inner-input-focus-background, rgba(0,0,0,0.1));
         --input-focus-border-color: var(--inner-input-focus-border-color, rgba(0,0,0,0.1));
         --input-focus-border-style: var(--inner-input-focus-border-style, dotted);
+        --input-invalid-color: var(--inner-input-invalid-color, inherit);
         --input-invalid-background: var(--inner-input-invalid-background, rgba(0,0,0,0.1));
         --input-invalid-border-style: var(--inner-input-invalid-border-style, dotted);
         --input-invalid-border-color: var(--inner-input-invalid-border-color, rgba(0,0,0,0.25));
@@ -187,7 +173,7 @@
         color: inherit;
         background-color: transparent;
       }
-      :focus::-moz-selection {
+      :hover::-moz-selection {
         color: var(--input-selection-color, inherit);
         background-color: var(--input-selection-background, rgba(255,255,255,0.5));
       }
@@ -195,7 +181,7 @@
         color: inherit;
         background-color: transparent;
       }
-      :focus::selection {
+      :hover::selection {
         color: var(--input-selection-color, inherit);
         background-color: var(--input-selection-background, rgba(255,255,255,0.5));
       }

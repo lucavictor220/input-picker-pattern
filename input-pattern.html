@@ -48,6 +48,7 @@
             visibility: hidden !important;
             opacity: 0 !important;
             pointer-events: none !important;
+            border: var(--input-border-width, thin) solid transparent;
           }
           #input {
             width: 0;
@@ -278,21 +279,25 @@
        * called automatically when static `_minWidthString` changes, but can called manually to resize the minwidth of the input, when the input is for example initially hidden
        */
       resize() {
-        if (this._minSizeJob || !this._minWidthString) {
+        if (!this._minWidthString) {
           return;
         }
-
+        if (this._minSizeJob) {
+          clearTimeout(this._minSizeJob);
+          this._minSizeJob = null;
+        }
         const minsizer = () => {
           const width = this.$.minsize.getBoundingClientRect().width;
           this._minSizeJob = null;
           if (width === 0) {
-            this._minSizeJob = requestAnimationFrame(minsizer.bind(this));
+            this._minSizeJob = setTimeout(minsizer.bind(this), 0);
           } else {
             this.$.input.style.minWidth = `${width}px`;
             this._debouncedComputeWidth();
           }
         }
-        this._minSizeJob = requestAnimationFrame(minsizer.bind(this));
+        this._minSizeJob = setTimeout(minsizer.bind(this), 0);
+
       }
 
       _debouncedComputeWidth() {
