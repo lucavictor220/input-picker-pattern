@@ -306,9 +306,9 @@
             // if that fails, clone the test node to document level and add some basic styles, that could define the elements's width
             const minsizeClone = this.$.minsize.cloneNode(true);
             const style = document.defaultView.getComputedStyle(this.$.minsize, '');
-            ['font-family', 'font-size', 'font-weight', 'font-style', 'letter-spacing'].reduce(
+            ['font-family', 'font-size', 'font-weight', 'font-style', 'letter-spacing', 'min-width', 'max-width'].reduce(
               ( accumulator, currentValue) => {
-                if (currentValue) {
+                if (currentValue && style[currentValue]) {
                   minsizeClone.style[currentValue] = style[currentValue];
                 }
               }, 'font-family');
@@ -317,6 +317,7 @@
             minsizeClone.style.position = 'fixed';
             minsizeClone.style.left = '0';
             minsizeClone.style.top = '0';
+            minsizeClone.style.border = 'thin solid transparent';
 
             document.body.appendChild(minsizeClone);
             requestAnimationFrame( () => {
