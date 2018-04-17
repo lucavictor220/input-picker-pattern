@@ -3750,7 +3750,7 @@
               "column": 6
             },
             "end": {
-              "line": 312,
+              "line": 336,
               "column": 7
             }
           },
@@ -3763,11 +3763,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 314,
+              "line": 338,
               "column": 6
             },
             "end": {
-              "line": 319,
+              "line": 343,
               "column": 7
             }
           },
@@ -3780,11 +3780,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 321,
+              "line": 345,
               "column": 6
             },
             "end": {
-              "line": 323,
+              "line": 347,
               "column": 7
             }
           },
@@ -3801,7 +3801,7 @@
           "column": 2
         },
         "end": {
-          "line": 326,
+          "line": 350,
           "column": 3
         }
       },
