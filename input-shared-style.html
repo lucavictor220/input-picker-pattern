@@ -181,7 +181,6 @@
          align-self: center;
          margin: 0 0.1em;
          cursor: pointer;
-         will-change: opacity;
          border-width: var(--inner-input-border-width, thin);
          border-style: var(--inner-input-border-style, dotted);
          border-color: var(--inner-input-border-color, transparent);
@@ -200,18 +199,18 @@
          width: 100%;
          fill: currentColor;
        }
+       #input .reset:focus,
        #input .reset:hover {
-         opacity: 1;
          color: var(--inner-input-focus-color, inherit);
          background-color: var(--inner-input-focus-background, rgba(0,0,0,0.1));
-       }
-       #input .reset:focus {
-         border-color: var(--inner-input-focus-border-color, var(--inner-input-focus-background, transparent));
-       }
-       #input .reset:hover,
-       #input .reset:focus {
          border-style: var(--inner-input-focus-border-style, dotted);
          outline: none;
+       }
+       #input .reset:hover {
+         opacity: 1;
+       }
+       #input .reset:focus {
+         border-color: var(--inner-input-focus-border-color, var(--inner-input-focus-background, rgba(0,0,0,0.2)));
        }
       /**
        * placeholder
