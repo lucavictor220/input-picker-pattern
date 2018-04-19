@@ -254,7 +254,7 @@
             type: Object,
             notify: true
           }
-          
+
           /**
           * @event input-picker-opened
           * Fired when a picker has been opened.
@@ -528,8 +528,12 @@
 
       _defaultChanged(def) {
         super._defaultChanged(def);
-        if (def && this.value !== undefined) {
-          this._setConfirmedValues();
+        if (def) {
+          setTimeout( () => {
+            if (this.value !== undefined) {
+              this._setConfirmedValues();
+            }
+          }, 0);
         }
       }
     }
